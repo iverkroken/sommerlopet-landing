@@ -7,12 +7,18 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "images": "node scripts/generate-images.mjs",
+    "predev": "npm run images",
+    "prebuild": "npm run images",
     "dev": "vite --host 127.0.0.1",
     "build": "node scripts/build.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "lint": "eslint . --max-warnings 0",
     "test:e2e": "playwright test",
-    "test": "npm run test:e2e"
+    "test:unit": "node --test tests/*.test.js",
+    "test": "npm run test:unit && npm run test:e2e",
+    "report:assets": "node scripts/report-assets.mjs",
+    "qa:capture": "node scripts/capture-responsive.mjs"
   },
   "dependencies": {
     "react": "^19.3.0",
@@ -26,6 +32,7 @@
     "eslint": "^10.12.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.13.0",
+    "sharp": "^0.35.5",
     "vite": "^8.3.3"
   }
 }
