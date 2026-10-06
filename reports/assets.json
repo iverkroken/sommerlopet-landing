@@ -16,6 +16,21 @@
       "gzipBytes": 196
     },
     {
+      "file": "images/hero-community.svg",
+      "bytes": 763,
+      "gzipBytes": 391
+    },
+    {
+      "file": "images/hero-summer.svg",
+      "bytes": 686,
+      "gzipBytes": 371
+    },
+    {
+      "file": "images/hero-track.svg",
+      "bytes": 888,
+      "gzipBytes": 475
+    },
+    {
       "file": "images/hero/children-320.webp",
       "bytes": 18264,
       "gzipBytes": 18264
@@ -375,6 +390,6 @@
       "nextImageMaxBytes": 330772
     }
   ],
-  "totalBytes": 1981527,
-  "totalGzipBytes": 1803314
+  "totalBytes": 1983864,
+  "totalGzipBytes": 1804551
 }
