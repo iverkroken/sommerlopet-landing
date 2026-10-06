@@ -6,7 +6,7 @@ Gjennomført 6. oktober 2026 mot lokalt produksjonsbuild. Én React-applikasjon;
 
 - `npm run lint` og `npm run build`: bestått.
 - `npm run test:unit`: fem tester bestått. Shuffle kontrolleres med 100 seeds × 100 runder, uten gjentakelser innen runden eller ved rundeskifte. Null/ett/seks bilder gir deterministisk forhåndsrendring.
-- `npm run test:e2e`: 137 bestått, fire tilsiktet utelatt. Full bredde-sweep og native zoom kjøres kun i Chromium; øvrig matrise kjøres i Chromium, Firefox og WebKit.
+- `npm run test:e2e`: 140 bestått, fire tilsiktet utelatt. Full bredde-sweep og native zoom kjøres kun i Chromium; øvrig matrise kjøres i Chromium, Firefox og WebKit.
 - `node scripts/verify-development.mjs`: React StrictMode, seks ulike bilder i første runde, deterministisk første bilde og ingen hydrerings-/konsollfeil.
 - `node scripts/verify-network.mjs`: kald cache ved 390 px/DPR 2 og 1440 px/DPR 1. Første bilde og bare ett kommende bilde lastes. Pause starter ingen nye bildenedlastinger. Se [målingene](network.json).
 
@@ -31,7 +31,7 @@ Native Chromium-zoom på 200 % og 400 % gir henholdsvis 640 og 320 CSS px fra 12
 2. **Interesse / distanser – god:** Korte avsnitt og tydelig typografihierarki. Én kolonne ved den minste bredden, bevisst 2+2+1 på mobil, 3+2 på nettbrett og fem på brede flater. Ingen tilfeldige tomme rader eller ulik elementhøyde. [Nettbrett](../artifacts/qa/768x1024-page.png).
 3. **Påmelding – god:** Samme handling i header, hero og avslutning; lenkene går direkte til OnReg 7837. Destinasjonen forklares ved hovedknappene. Tastatur og JS-fri navigasjon er testet med en avgrenset testrespons ved destinasjonen; ingen ekte påmelding er sendt.
 
-Rettet under kontrollen: overskriftsbredde ved 320 px med 200 % tekst, distansetypografi i en smal container på bred skjerm, grid-kantlinjer ved overgang til 3+2 og vertikale fokuspunkter som beskar personer for høyt på brede heroer. [Alle seks ved 320 px](../artifacts/qa/320x568-heroes.png), [alle seks ved 2560 px](../artifacts/qa/2560x1440-heroes.png).
+Rettet under kontrollen: overskriftsbredde ved 320 px med 200 % tekst, distansetypografi i en smal container på bred skjerm, grid-kantlinjer ved overgang til 3+2 og vertikale fokuspunkter som beskar personer for høyt på brede heroer. Kodegjennomgangen avdekket også at resize etter forhåndslasting kunne godkjenne feil bildekilde. Resize/DPR-endring validerer nå kandidaten på nytt før bytte; feil på den større varianten er regresjonstestet i alle tre motorer. [Alle seks ved 320 px](../artifacts/qa/320x568-heroes.png), [alle seks ved 2560 px](../artifacts/qa/2560x1440-heroes.png).
 
 ## Tilgjengelighet og motion
 
@@ -44,7 +44,7 @@ Rettet under kontrollen: overskriftsbredde ved 320 px med 200 % tekst, distanset
 
 ## Ytelse og avgrensninger
 
-[Produksjonsrapporten](assets.md) oppgir alle filer, alle 24 WebP-varianter og initial sidestørrelse. Omtrent 246 KiB ved 390 px/DPR 2 og 270 KiB ved 1440 px/DPR 1 med gzip, inkludert første bilde. Neste bilde rapporteres separat. Originale PNG-filer sendes ikke til nettleseren.
+[Produksjonsrapporten](assets.md) oppgir alle filer, alle 24 WebP-varianter og initial sidestørrelse. Omtrent 247 KiB ved 390 px/DPR 2 og 270 KiB ved 1440 px/DPR 1 med gzip, inkludert første bilde. Neste bilde rapporteres separat. Originale PNG-filer sendes ikke til nettleseren.
 
 De tre målbildene er 600 px brede og blir synlig mykere på desktop/ultrawide. Genereringen oppskalerer dem ikke; større originaler er nødvendig for bedre skarphet. Bildene er dekorative og ingen nødvendig informasjon ligger bare i dem.
 

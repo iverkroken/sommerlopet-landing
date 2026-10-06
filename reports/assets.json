@@ -6,9 +6,9 @@
       "gzipBytes": 3249
     },
     {
-      "file": "assets/index-XQxcDc0h.js",
-      "bytes": 235313,
-      "gzipBytes": 72717
+      "file": "assets/index-DYFkx_HH.js",
+      "bytes": 235884,
+      "gzipBytes": 72827
     },
     {
       "file": "favicon.svg",
@@ -138,7 +138,7 @@
     {
       "file": "index.html",
       "bytes": 9196,
-      "gzipBytes": 2209
+      "gzipBytes": 2210
     }
   ],
   "images": [
@@ -359,8 +359,8 @@
       "dpr": 2,
       "firstImage": "/images/hero/open-960.webp",
       "firstImageBytes": 173976,
-      "initialRawBytes": 430100,
-      "initialGzipBytes": 252347,
+      "initialRawBytes": 430671,
+      "initialGzipBytes": 252458,
       "nextImageMinBytes": 26836,
       "nextImageMaxBytes": 135286
     },
@@ -369,12 +369,12 @@
       "dpr": 1,
       "firstImage": "/images/hero/open-1024.webp",
       "firstImageBytes": 198374,
-      "initialRawBytes": 454498,
-      "initialGzipBytes": 276745,
+      "initialRawBytes": 455069,
+      "initialGzipBytes": 276856,
       "nextImageMinBytes": 26836,
       "nextImageMaxBytes": 330772
     }
   ],
-  "totalBytes": 1980956,
-  "totalGzipBytes": 1803203
+  "totalBytes": 1981527,
+  "totalGzipBytes": 1803314
 }
