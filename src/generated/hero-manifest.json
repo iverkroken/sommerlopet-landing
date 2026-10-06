@@ -1,0 +1,212 @@
+[
+  {
+    "id": "open",
+    "original": "åpen klasse.png",
+    "originalBytes": 1935122,
+    "width": 1024,
+    "height": 768,
+    "src": "/images/hero/open-960.webp",
+    "srcSet": "/images/hero/open-320.webp 320w, /images/hero/open-480.webp 480w, /images/hero/open-640.webp 640w, /images/hero/open-960.webp 960w, /images/hero/open-1024.webp 1024w",
+    "variants": [
+      {
+        "src": "/images/hero/open-320.webp",
+        "width": 320,
+        "height": 240,
+        "bytes": 28816
+      },
+      {
+        "src": "/images/hero/open-480.webp",
+        "width": 480,
+        "height": 360,
+        "bytes": 58862
+      },
+      {
+        "src": "/images/hero/open-640.webp",
+        "width": 640,
+        "height": 480,
+        "bytes": 94204
+      },
+      {
+        "src": "/images/hero/open-960.webp",
+        "width": 960,
+        "height": 720,
+        "bytes": 173976
+      },
+      {
+        "src": "/images/hero/open-1024.webp",
+        "width": 1024,
+        "height": 768,
+        "bytes": 198374
+      }
+    ]
+  },
+  {
+    "id": "children",
+    "original": "barneklassen.png",
+    "originalBytes": 709463,
+    "width": 768,
+    "height": 512,
+    "src": "/images/hero/children-768.webp",
+    "srcSet": "/images/hero/children-320.webp 320w, /images/hero/children-480.webp 480w, /images/hero/children-640.webp 640w, /images/hero/children-768.webp 768w",
+    "variants": [
+      {
+        "src": "/images/hero/children-320.webp",
+        "width": 320,
+        "height": 213,
+        "bytes": 18264
+      },
+      {
+        "src": "/images/hero/children-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 31922
+      },
+      {
+        "src": "/images/hero/children-640.webp",
+        "width": 640,
+        "height": 427,
+        "bytes": 47264
+      },
+      {
+        "src": "/images/hero/children-768.webp",
+        "width": 768,
+        "height": 512,
+        "bytes": 60134
+      }
+    ]
+  },
+  {
+    "id": "older",
+    "original": "de-eldre.png",
+    "originalBytes": 5813399,
+    "width": 2048,
+    "height": 1370,
+    "src": "/images/hero/older-960.webp",
+    "srcSet": "/images/hero/older-320.webp 320w, /images/hero/older-480.webp 480w, /images/hero/older-640.webp 640w, /images/hero/older-960.webp 960w, /images/hero/older-1280.webp 1280w, /images/hero/older-1920.webp 1920w",
+    "variants": [
+      {
+        "src": "/images/hero/older-320.webp",
+        "width": 320,
+        "height": 214,
+        "bytes": 23720
+      },
+      {
+        "src": "/images/hero/older-480.webp",
+        "width": 480,
+        "height": 321,
+        "bytes": 46234
+      },
+      {
+        "src": "/images/hero/older-640.webp",
+        "width": 640,
+        "height": 428,
+        "bytes": 73380
+      },
+      {
+        "src": "/images/hero/older-960.webp",
+        "width": 960,
+        "height": 642,
+        "bytes": 135286
+      },
+      {
+        "src": "/images/hero/older-1280.webp",
+        "width": 1280,
+        "height": 856,
+        "bytes": 198628
+      },
+      {
+        "src": "/images/hero/older-1920.webp",
+        "width": 1920,
+        "height": 1284,
+        "bytes": 330772
+      }
+    ]
+  },
+  {
+    "id": "finish-1",
+    "original": "i mål 1.png",
+    "originalBytes": 439246,
+    "width": 600,
+    "height": 400,
+    "src": "/images/hero/finish-1-600.webp",
+    "srcSet": "/images/hero/finish-1-320.webp 320w, /images/hero/finish-1-480.webp 480w, /images/hero/finish-1-600.webp 600w",
+    "variants": [
+      {
+        "src": "/images/hero/finish-1-320.webp",
+        "width": 320,
+        "height": 213,
+        "bytes": 16122
+      },
+      {
+        "src": "/images/hero/finish-1-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 26458
+      },
+      {
+        "src": "/images/hero/finish-1-600.webp",
+        "width": 600,
+        "height": 400,
+        "bytes": 35640
+      }
+    ]
+  },
+  {
+    "id": "finish-2",
+    "original": "i mål 2.png",
+    "originalBytes": 375427,
+    "width": 600,
+    "height": 400,
+    "src": "/images/hero/finish-2-600.webp",
+    "srcSet": "/images/hero/finish-2-320.webp 320w, /images/hero/finish-2-480.webp 480w, /images/hero/finish-2-600.webp 600w",
+    "variants": [
+      {
+        "src": "/images/hero/finish-2-320.webp",
+        "width": 320,
+        "height": 213,
+        "bytes": 12138
+      },
+      {
+        "src": "/images/hero/finish-2-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 20050
+      },
+      {
+        "src": "/images/hero/finish-2-600.webp",
+        "width": 600,
+        "height": 400,
+        "bytes": 26836
+      }
+    ]
+  },
+  {
+    "id": "finish-3",
+    "original": "i mål 3.png",
+    "originalBytes": 410889,
+    "width": 600,
+    "height": 400,
+    "src": "/images/hero/finish-3-600.webp",
+    "srcSet": "/images/hero/finish-3-320.webp 320w, /images/hero/finish-3-480.webp 480w, /images/hero/finish-3-600.webp 600w",
+    "variants": [
+      {
+        "src": "/images/hero/finish-3-320.webp",
+        "width": 320,
+        "height": 213,
+        "bytes": 13666
+      },
+      {
+        "src": "/images/hero/finish-3-480.webp",
+        "width": 480,
+        "height": 320,
+        "bytes": 22926
+      },
+      {
+        "src": "/images/hero/finish-3-600.webp",
+        "width": 600,
+        "height": 400,
+        "bytes": 31160
+      }
+    ]
+  }
+]

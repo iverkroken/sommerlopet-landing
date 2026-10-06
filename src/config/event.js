@@ -1,7 +1,7 @@
 // Confirmed against sommerlopet.no and OnReg event 7837, 6 October 2026.
 export const event = {
   name: 'Sommerløpet', titlePartner: 'Sparebanken Norge', year: '2027',
-  date: '2027-06-05', displayDate: '5. juni 2027', location: 'Kristiansand',
+  date: '2027-06-05', displayDate: '5. juni 2027', shortDate: '05 / 06 / 27', location: 'Kristiansand',
   registrationUrl: 'https://secure.onreg.com/onreg2/front/step1.php?id=7837',
   officialUrl: 'https://sommerlopet.no/',
   // TODO: Add the supplied official logo as a local asset, then set this path.

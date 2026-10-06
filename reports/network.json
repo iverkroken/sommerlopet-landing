@@ -1,0 +1,71 @@
+{
+  "note": "Cold browser contexts against local Vite preview. encodedBodyBytes reflects negotiated compression; transferBytes also includes estimated response overhead. Two photos total: visible deterministic first and one queued next. Pausing and advancing 14 seconds requested no others. Next photo varies by shuffle.",
+  "scenarios": [
+    {
+      "width": 390,
+      "height": 844,
+      "dpr": 2,
+      "firstPhoto": "/images/hero/open-960.webp",
+      "resources": [
+        {
+          "path": "/",
+          "encodedBodyBytes": 2210,
+          "transferBytes": 2510
+        },
+        {
+          "path": "/assets/index-DYFkx_HH.js",
+          "encodedBodyBytes": 72827,
+          "transferBytes": 73127
+        },
+        {
+          "path": "/assets/index-Dl8IVH4u.css",
+          "encodedBodyBytes": 3249,
+          "transferBytes": 3549
+        },
+        {
+          "path": "/images/hero/open-960.webp",
+          "encodedBodyBytes": 173976,
+          "transferBytes": 174276
+        },
+        {
+          "path": "/images/hero/children-768.webp",
+          "encodedBodyBytes": 60134,
+          "transferBytes": 60434
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "dpr": 1,
+      "firstPhoto": "/images/hero/open-1024.webp",
+      "resources": [
+        {
+          "path": "/",
+          "encodedBodyBytes": 2210,
+          "transferBytes": 2510
+        },
+        {
+          "path": "/assets/index-DYFkx_HH.js",
+          "encodedBodyBytes": 72827,
+          "transferBytes": 73127
+        },
+        {
+          "path": "/assets/index-Dl8IVH4u.css",
+          "encodedBodyBytes": 3249,
+          "transferBytes": 3549
+        },
+        {
+          "path": "/images/hero/open-1024.webp",
+          "encodedBodyBytes": 198374,
+          "transferBytes": 198674
+        },
+        {
+          "path": "/images/hero/older-1920.webp",
+          "encodedBodyBytes": 330772,
+          "transferBytes": 331072
+        }
+      ]
+    }
+  ]
+}

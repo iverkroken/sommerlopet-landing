@@ -17,3 +17,4 @@ if (!template.includes('<!--app-html-->')) throw new Error('Missing prerender pl
 await writeFile('dist/index.html', template.replace('<!--app-html-->', render()))
 await rm(resolve('.prerender'), { recursive: true, force: true })
 console.log('Prerendered landing page: dist/index.html')
+await import('./report-assets.mjs')
