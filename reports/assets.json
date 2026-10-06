@@ -1,14 +1,19 @@
 {
   "assets": [
     {
-      "file": "assets/index-Dl8IVH4u.css",
-      "bytes": 11370,
-      "gzipBytes": 3249
+      "file": "assets/index-BtpzDnsf.js",
+      "bytes": 234546,
+      "gzipBytes": 72472
     },
     {
-      "file": "assets/index-DYFkx_HH.js",
-      "bytes": 235884,
-      "gzipBytes": 72827
+      "file": "assets/index-CyHc9Vkg.css",
+      "bytes": 11446,
+      "gzipBytes": 3319
+    },
+    {
+      "file": "assets/sommerløpet-logo-D1dD6tDE.png",
+      "bytes": 24815,
+      "gzipBytes": 24815
     },
     {
       "file": "favicon.svg",
@@ -152,8 +157,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 9196,
-      "gzipBytes": 2210
+      "bytes": 7485,
+      "gzipBytes": 2037
     }
   ],
   "images": [
@@ -372,24 +377,26 @@
     {
       "width": 390,
       "dpr": 2,
+      "slotWidth": 358,
       "firstImage": "/images/hero/open-960.webp",
       "firstImageBytes": 173976,
-      "initialRawBytes": 430671,
-      "initialGzipBytes": 252458,
+      "initialRawBytes": 452513,
+      "initialGzipBytes": 276815,
       "nextImageMinBytes": 26836,
       "nextImageMaxBytes": 135286
     },
     {
       "width": 1440,
       "dpr": 1,
-      "firstImage": "/images/hero/open-1024.webp",
-      "firstImageBytes": 198374,
-      "initialRawBytes": 455069,
-      "initialGzipBytes": 276856,
+      "slotWidth": 789.12,
+      "firstImage": "/images/hero/open-960.webp",
+      "firstImageBytes": 173976,
+      "initialRawBytes": 452513,
+      "initialGzipBytes": 276815,
       "nextImageMinBytes": 26836,
-      "nextImageMaxBytes": 330772
+      "nextImageMaxBytes": 135286
     }
   ],
-  "totalBytes": 1983864,
-  "totalGzipBytes": 1804551
+  "totalBytes": 2005706,
+  "totalGzipBytes": 1828908
 }

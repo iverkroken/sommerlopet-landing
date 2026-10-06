@@ -10,8 +10,12 @@ const focalPoints = {
   'finish-3': ['52% 42%', 'center top', 'center top'],
 }
 
+// Matches .container, --hero-gap, the 40/60 split and .hero-media's 800px cap.
+// Shared by the rendered image and preload(), including before hydration.
+export const heroSizes = '(min-width: 64rem) min(800px, calc((min(84rem, 100vw - 2 * clamp(1rem, .5rem + 2vw, 3rem)) - clamp(1.25rem, 2vw, 2rem)) * .6)), min(800px, calc(100vw - 2 * clamp(1rem, .5rem + 2vw, 3rem)))'
+
 export const heroImages = manifest.map(({ id, src, srcSet, width, height }) => ({
-  id, src, srcSet, width, height, sizes: '100vw', alt: '', decorative: true,
+  id, src, srcSet, width, height, sizes: heroSizes, alt: '', decorative: true,
   objectPositionMobile: focalPoints[id][0],
   objectPositionDesktop: focalPoints[id][1],
   objectPositionLandscape: focalPoints[id][2],

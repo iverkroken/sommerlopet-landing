@@ -19,32 +19,25 @@ function HeroImage({ image, current, animated }) {
 }
 
 export default function Hero({ images = heroImages }) {
-  const { slides, running, canRotate, paused, setPaused } = useHeroRotation(images)
+  const { slides, running } = useHeroRotation(images)
   const current = images.find((image) => image.id === slides.current)
   const previous = images.find((image) => image.id === slides.previous)
-  const controlLabel = paused ? 'Start bildebytte' : 'Pause bildebytte'
 
   return <section className={`hero ${running ? '' : 'hero--static'}`} aria-labelledby="hero-title" style={{ '--hero-fade': `${heroTiming.fadeMs}ms` }}>
-    <div className="hero-visual">
-      {previous && <HeroImage key={`previous-${previous.id}`} image={previous} current={false} />}
-      {current && <HeroImage key={current.id} image={current} current animated={!!previous && running} />}
-    </div>
-    <div className="hero-shade" />
     <div className="container hero-layout">
       <div className="hero-content">
-        <p className="eyebrow hero-eyebrow"><span className="live-dot" /> En løpefest for små og store</p>
-        <h1 id="hero-title">{event.name === 'Sommerløpet' ? <>Sommer<wbr />løpet</> : event.name}{' '}<span>{event.year}</span></h1>
-        <p className="hero-description">Sommer i byen. Folk i gatene.<br />En dag å glede seg til.</p>
-        <p className="hero-details"><time dateTime={event.date}>{event.displayDate}</time><span aria-hidden="true" className="detail-divider" /><span>{event.location}</span></p>
+        <p className="eyebrow hero-eyebrow">En løpefest for alle</p>
+        <h1 id="hero-title">{event.name === 'Sommerløpet' ? <>Sommer<wbr />løpet</> : event.name}{' '}<span className="hero-year">{event.year}</span></h1>
+        <p className="hero-statement">5. juni fyller vi Kristiansand med løpeglede.</p>
+        <p className="hero-description">Ta med noen du er glad i. Finn din distanse og bli med på løpefesten!</p>
         <RegistrationLink />
+        <p className="eyebrow hero-details"><time dateTime={event.date}>{event.displayDate}</time> · {event.location}</p>
       </div>
-    </div>
-    <div className="container hero-bottom">
-      <span className="hero-bottom-note">Ditt tempo. Din sommer.</span>
-      <div className="motion-control-slot">
-        {canRotate && <button className="motion-control" type="button" onClick={() => setPaused((value) => !value)} aria-label={controlLabel} title={controlLabel}>
-          <svg aria-hidden="true" viewBox="0 0 16 16" fill="currentColor">{paused ? <path d="m5 3 8 5-8 5Z" /> : <path d="M4 3h3v10H4zm5 0h3v10H9z" />}</svg>
-        </button>}
+      <div className="hero-media">
+        <div className="hero-visual">
+          {previous && <HeroImage key={`previous-${previous.id}`} image={previous} current={false} />}
+          {current && <HeroImage key={current.id} image={current} current animated={!!previous && running} />}
+        </div>
       </div>
     </div>
   </section>
