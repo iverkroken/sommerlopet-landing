@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { createRotation } from '../lib/shuffle.js'
 import { heroTiming, heroMobileMedia } from '../config/hero-images.js'
 
+const sourceSelection = () => `${window.innerWidth}:${window.devicePixelRatio}:${window.matchMedia(heroMobileMedia).matches}`
+
 function preload(image) {
   const source = window.matchMedia(heroMobileMedia).matches && image.mobileSrcSet ? image.mobileSrcSet : image.srcSet
   return new Promise((resolve, reject) => {
@@ -18,20 +20,38 @@ function preload(image) {
 export function useHeroRotation(images) {
   const [slides, setSlides] = useState({ current: images[0]?.id ?? null, previous: null })
   const [paused, setPaused] = useState(false)
-  const [environment, setEnvironment] = useState({ ready: false, reduced: true, visible: true })
+  const [environment, setEnvironment] = useState({ ready: false, reduced: true, visible: true, sourceKey: '' })
   const [unavailable, setUnavailable] = useState(false)
   const queue = useRef(null)
   const loads = useRef(new Map())
   const currentId = slides.current
   const previousId = slides.previous
+  const sourceKey = environment.sourceKey
 
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setEnvironment({ ready: true, reduced: motion.matches, visible: !document.hidden })
+    const mobileSource = window.matchMedia(heroMobileMedia)
+    let resolution = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+    const update = () => setEnvironment({ ready: true, reduced: motion.matches, visible: !document.hidden, sourceKey: sourceSelection() })
+    const onResolution = () => {
+      resolution.removeEventListener('change', onResolution)
+      resolution = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+      resolution.addEventListener('change', onResolution)
+      update()
+    }
     update()
     motion.addEventListener('change', update)
+    mobileSource.addEventListener('change', update)
+    resolution.addEventListener('change', onResolution)
+    window.addEventListener('resize', update)
     document.addEventListener('visibilitychange', update)
-    return () => { motion.removeEventListener('change', update); document.removeEventListener('visibilitychange', update) }
+    return () => {
+      motion.removeEventListener('change', update)
+      mobileSource.removeEventListener('change', update)
+      resolution.removeEventListener('change', onResolution)
+      window.removeEventListener('resize', update)
+      document.removeEventListener('visibilitychange', update)
+    }
   }, [])
 
   const canRotate = environment.ready && !environment.reduced && images.length > 1 && !unavailable
@@ -43,7 +63,9 @@ export function useHeroRotation(images) {
     let timer
     let idle
     const started = performance.now()
-    const allowed = () => !cancelled && !document.hidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // A decoded candidate from a smaller viewport does not validate a larger srcset URL.
+    // Guard synchronous resize/zoom races too, before React has cleaned up this effect.
+    const allowed = () => !cancelled && !document.hidden && sourceSelection() === sourceKey && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     async function prepareNext() {
       const currentImage = document.querySelector('.hero-image--current')
@@ -53,7 +75,7 @@ export function useHeroRotation(images) {
         if (nextId === null) { setUnavailable(true); return }
         const image = images.find((entry) => entry.id === nextId)
         // Include source-selection inputs so resizing can request the correct variant.
-        const key = `${nextId}:${window.innerWidth}:${window.devicePixelRatio}`
+        const key = `${nextId}:${sourceKey}`
         try {
           if (!loads.current.has(key)) loads.current.set(key, preload(image))
           await loads.current.get(key)
@@ -65,7 +87,7 @@ export function useHeroRotation(images) {
           }, Math.max(0, heroTiming.intervalMs - (performance.now() - started)))
           return
         } catch {
-          if (cancelled) return
+          if (!allowed()) return
           queue.current.exclude(nextId)
         }
       }
@@ -84,7 +106,7 @@ export function useHeroRotation(images) {
       if (idle !== undefined) window.cancelIdleCallback(idle)
       window.removeEventListener('load', schedule)
     }
-  }, [running, currentId, images])
+  }, [running, currentId, images, sourceKey])
 
   useEffect(() => {
     if (previousId === null) return
