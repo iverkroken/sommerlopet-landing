@@ -19,7 +19,7 @@ test('reduced motion requests one photo and leaves every reveal visible', async 
   const photos = new Set()
   page.on('request', (request) => { if (/\/hero\/.+\.webp/.test(request.url())) photos.add(request.url()) })
   await page.goto('/')
-  await page.locator('.closing').scrollIntoViewIfNeeded()
+  await page.locator('.campaign-footer').scrollIntoViewIfNeeded()
   await expect(page.locator('.is-revealing')).toHaveCount(0)
   expect(photos.size).toBe(1)
   for (const item of await page.locator('[data-reveal]').all()) {
@@ -29,6 +29,7 @@ test('reduced motion requests one photo and leaves every reveal visible', async 
 })
 
 test('reveal animates once, uses stagger and stops when reduced motion is enabled', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 500 })
   await page.goto('/')
   // The static page may load before React has attached the observer.
   await expect(page.getByRole('button', { name: 'Pause bildebytte' })).toBeVisible()
@@ -53,13 +54,13 @@ test('reveal animates once, uses stagger and stops when reduced motion is enable
 test('without IntersectionObserver, content stays visible', async ({ page }) => {
   await page.addInitScript(() => { delete window.IntersectionObserver })
   await page.goto('/')
-  await page.locator('.closing').scrollIntoViewIfNeeded()
+  await page.locator('.campaign-footer').scrollIntoViewIfNeeded()
   for (const item of await page.locator('[data-reveal]').all()) await expect(item).toHaveCSS('opacity', '1')
 })
 
 test('keyboard focus cancels a CTA reveal immediately', async ({ page }) => {
   await page.goto('/')
-  const cta = page.locator('.closing .button')
+  const cta = page.locator('.campaign-footer .button')
   await cta.focus()
   await expect(cta).toBeFocused()
   await expect(page.locator('[data-reveal="cta"]')).toHaveCSS('opacity', '1')

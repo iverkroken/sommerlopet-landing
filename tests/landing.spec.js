@@ -4,20 +4,43 @@ import AxeBuilder from '@axe-core/playwright'
 const registration = 'https://secure.onreg.com/onreg2/front/step1.php?id=7837'
 const activeImage = (page) => page.locator('.hero-image--current')
 
+test('campaign has a branded topbar, split hero and practical-info-only footer', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('.hero-shade, .intro, .closing, .site-footer')).toHaveCount(0)
+  await expect(page.getByRole('banner')).toHaveCount(1)
+  await expect(page.getByRole('banner').getByRole('link', { name: 'Påmelding', exact: true })).toHaveAttribute('href', registration)
+  await expect(page.getByText('Påmelding hos OnReg', { exact: true })).toHaveCount(0)
+  const logo = page.getByRole('img', { name: 'Sparebanken Norge Sommerløpet', exact: true })
+  await expect(logo).toHaveCount(1)
+  await expect(logo).toBeVisible()
+  await logo.evaluate((image) => image.decode())
+  expect(await logo.evaluate((image) => image.complete && image.naturalWidth === 900 && image.naturalHeight === 168)).toBe(true)
+  await expect(page.getByRole('banner').getByRole('img')).toHaveCount(1)
+  await expect(page.getByRole('link', { name: 'Påmelding 2027', exact: true })).toHaveCount(1)
+  const footer = page.getByRole('contentinfo')
+  await expect(footer.getByText('Vi ses på startstreken.', { exact: true })).toBeVisible()
+  await expect(footer.locator('time')).toHaveAttribute('datetime', '2027-06-05')
+  await expect(footer.getByRole('link', { name: 'Praktisk info', exact: true })).toHaveAttribute('href', 'https://sommerlopet.no/')
+  await expect(footer.getByRole('link')).toHaveCount(1)
+  for (const link of await page.locator(`a[href="${registration}"]`).all()) {
+    expect(await link.getAttribute('target')).toBeNull()
+  }
+})
+
 test('registration works from the server-rendered page without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } })
   const page = await context.newPage()
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sommerløpet 2027')
   await expect(page.getByText('5. juni 2027', { exact: true }).first()).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Meld deg på', exact: true })).toHaveCount(3)
-  for (const link of await page.getByRole('link', { name: 'Meld deg på', exact: true }).all()) {
+  await expect(page.locator(`a[href="${registration}"]`)).toHaveCount(2)
+  for (const link of await page.locator(`a[href="${registration}"]`).all()) {
     await expect(link).toHaveAttribute('href', registration)
   }
   await expect(page.getByRole('button', { name: /bildebytte/ })).toHaveCount(0)
   await expect(activeImage(page)).toBeVisible()
   await page.route(registration, (route) => route.fulfill({ contentType: 'text/html', body: '<h1>OnReg test destination</h1>' }))
-  await page.getByRole('link', { name: 'Meld deg på', exact: true }).first().click()
+  await page.getByRole('link', { name: 'Påmelding 2027', exact: true }).first().click()
   await expect(page).toHaveURL(registration)
   await context.close()
 })
@@ -67,7 +90,7 @@ test('failed next images keep the current image and registration usable', async 
   const original = await activeImage(page).getAttribute('src')
   await page.clock.runFor(21000)
   await expect(activeImage(page)).toHaveAttribute('src', original)
-  await expect(page.getByRole('link', { name: 'Meld deg på', exact: true }).first()).toHaveAttribute('href', registration)
+  await expect(page.getByRole('link', { name: 'Påmelding 2027', exact: true }).first()).toHaveAttribute('href', registration)
 })
 
 for (const width of [320, 390, 768, 1280, 1920]) {
@@ -81,7 +104,7 @@ for (const width of [320, 390, 768, 1280, 1920]) {
       document.querySelector('.hero-description').textContent += ' Ta med venner og familie til en sommerdag i Kristiansand, med plass til både små og store opplevelser.'
     })
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
-    const cta = page.getByRole('link', { name: 'Meld deg på', exact: true }).first()
+    const cta = page.getByRole('link', { name: 'Påmelding 2027', exact: true }).first()
     await cta.scrollIntoViewIfNeeded()
     await expect(cta).toBeInViewport()
   })
@@ -98,7 +121,18 @@ test('keyboard navigation and automated WCAG checks', async ({ page, browserName
   await page.keyboard.press('Enter')
   if (windowsWebKit) await page.locator('.hero .button').focus()
   else await page.keyboard.press('Tab')
-  await expect(page.locator('.hero').getByRole('link', { name: 'Meld deg på', exact: true })).toBeFocused()
+  await expect(page.locator('.hero').getByRole('link', { name: 'Påmelding 2027', exact: true })).toBeFocused()
+  // Visit every reveal before auditing. Scroll/IntersectionObserver delivery is
+  // asynchronous; an empty class list immediately after Tab is not a barrier.
+  // Keep motion enabled and await actual animations rather than a fixed delay.
+  for (const element of await page.locator('[data-reveal]').all()) {
+    await element.evaluate(async (node) => {
+      node.scrollIntoView({ behavior: 'instant', block: 'center' })
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+      await Promise.all(document.getAnimations().map((animation) => animation.finished.catch(() => {})))
+    })
+  }
+  await expect(page.locator('.is-revealing')).toHaveCount(0)
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze()
   expect(results.violations).toEqual([])
 })
@@ -122,8 +156,8 @@ test('blocked JavaScript still leaves a styled, actionable landing page', async 
   await page.route('**/assets/*.js', (route) => route.abort())
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sommerløpet 2027')
-  const cta = page.locator('.hero').getByRole('link', { name: 'Meld deg på', exact: true })
-  await expect(cta).toHaveCSS('background-color', 'rgb(255, 98, 76)')
+  const cta = page.locator('.hero').getByRole('link', { name: 'Påmelding 2027', exact: true })
+  await expect(cta).toHaveCSS('background-color', 'rgb(255, 79, 64)')
   await expect(cta).toHaveAttribute('href', registration)
   await expect(page.getByRole('button')).toHaveCount(0)
 })

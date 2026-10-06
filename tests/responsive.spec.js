@@ -32,7 +32,8 @@ test('continuous resize in both directions and at content thresholds', async ({ 
   for (const threshold of [304, 576, 960]) for (const delta of [-1, 0, 1]) {
     await page.setViewportSize({ width: 1280, height: 900 })
     await page.locator('.distance-container').evaluate((element, width) => { element.style.width = `${width}px` }, threshold + delta)
-    expect(await layoutProblems(page)).toEqual([])
+    expect((await page.locator('.distance-container').boundingBox()).width).toBe(threshold + delta)
+    expect(await layoutProblems(page, { isolatedDistanceGrid: true })).toEqual([])
   }
 })
 

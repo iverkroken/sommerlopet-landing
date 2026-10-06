@@ -38,7 +38,7 @@ for (const delayDecode of [false, true]) {
       })
     }, delayDecode)
     let rejectedDesktopRequests = 0
-    await page.route('**/older-1920.webp', async (route) => {
+    await page.route('**/older-960.webp', async (route) => {
       await route.abort()
       rejectedDesktopRequests += 1
     })

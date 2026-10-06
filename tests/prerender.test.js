@@ -14,7 +14,7 @@ test('zero, one and six photos prerender with deterministic HTML and functional 
       const render = () => renderToString(createElement(Hero, { images: heroImages.slice(0, count) }))
       const html = render()
       assert.equal(html, render())
-      assert.equal((html.match(/<img /g) || []).length, count ? 1 : 0)
+      assert.equal((html.match(/data-image-id=/g) || []).length, count ? 1 : 0)
       assert.ok(html.includes('https://secure.onreg.com/onreg2/front/step1.php?id=7837'))
       assert.ok(!html.includes('<button'))
       if (count) assert.ok(html.includes('data-image-id="open"'))
