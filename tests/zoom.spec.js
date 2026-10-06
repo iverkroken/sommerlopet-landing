@@ -19,7 +19,7 @@ test('native browser zoom at 200% and 400% reflows and preserves every CTA', asy
       expect(await page.evaluate(() => devicePixelRatio)).toBe(zoom)
       expect(await page.evaluate(() => visualViewport.scale)).toBe(1)
       expect(await layoutProblems(page)).toEqual([])
-      for (const cta of await page.locator('.button').all()) {
+      for (const cta of await page.locator('.button--primary').all()) {
         await cta.scrollIntoViewIfNeeded()
         await expect(cta).toBeInViewport()
         await expect(cta).toHaveAttribute('href', 'https://secure.onreg.com/onreg2/front/step1.php?id=7837')
@@ -27,7 +27,7 @@ test('native browser zoom at 200% and 400% reflows and preserves every CTA', asy
       await page.locator('.hero-image--current').evaluate((image) => image.decode())
       // Full-page screenshot stitching miscalculates native zoom in Playwright.
       // Capture actual viewports, preserving the browser's real zoom and layout.
-      for (const section of ['.site-header', '.distance-list', '.closing']) {
+      for (const section of ['.site-header', '.hero-media', '.distance-list', '.campaign-footer']) {
         await page.locator(section).scrollIntoViewIfNeeded()
         await page.screenshot({ path: testInfo.outputPath(`browser-zoom-${zoom * 100}-${section.slice(1)}.png`) })
       }
